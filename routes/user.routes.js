@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const bcrypt = require('bcrypt')
 const {z} = require('zod')
-const {userModel, purchaseModel} = require('../models/schema.js')
+const {userModel, purchaseModel, courseModel} = require('../models/schema.js')
 const jwt = require('jsonwebtoken')
 const userMiddleware = require('../middleware/user.middleware.js')
 
@@ -68,10 +68,35 @@ userRouter.post('/signin', async (req, res) => {
 })
 
 // user purchases
-userRouter.post('/purchases', userMiddleware, async (req, res) => {
-    const userId = req.userId
-    const purchases = await purchaseModel.find({userId: userId})
-    res.json({message: 'Purchases fetched', purchases: purchases})
+// userRouter.get('/purchases', userMiddleware, async (req, res) => {
+//     const userId = req.userId
+//     const purchases = await purchaseModel.find({userId: userId})
+//     const courseData = await courseModel.find({
+//         _id: {$in: purchases.map(purchase => purchase.courseId)}
+//     })
+//     res.json({message: 'Purchases fetched', purchases: purchases, courseData: courseData})
+// })
+userRouter.get("/purchases", userMiddleware, async function(req, res) {
+    const userId = req.userId;
+
+    const purchases = await purchaseModel.find({
+        userId,
+    });
+
+    let purchasedCourseIds = [];
+
+    for (let i = 0; i<purchases.length;i++){ 
+        purchasedCourseIds.push(purchases[i].courseId)
+    }
+
+    const coursesData = await courseModel.find({
+        _id: { $in: purchasedCourseIds }
+    })
+
+    res.json({
+        purchases,
+        coursesData
+    })
 })
 
 module.exports = {
