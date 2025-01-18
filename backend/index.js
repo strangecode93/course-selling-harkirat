@@ -5,9 +5,15 @@ const connectDB = require('./db/dbconnect')
 const {userRouter} = require('./routes/user.routes')
 const {courseRouter} = require('./routes/course.routes')
 const {adminRouter} = require('./routes/admin.routes')
+const cors = require('cors')
 dotenv.config()
 app.use(express.json())
 connectDB();
+cors.config({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+});
 
 const PORT = process.env.PORT || 3000
 
