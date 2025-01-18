@@ -1,0 +1,83 @@
+// UserSignup.tsx
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+const UserSignup = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/user/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await response.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        navigate('/courses');
+      } else {
+        setError(data.message);
+      }
+    } catch (error: string | any) {
+      setError(error.message);
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="text-xl text-center md:text-3xl font-bold">
+        User Signup
+      </h1>
+      <form onSubmit={handleSubmit} className="mt-5 p-5 text-xl">
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+        />
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+        />
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+        />
+        <label>Confirm Password:</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+        />
+        {error && <p className="text-red-500">{error}</p>}
+        <button type="submit" className="bg-black text-white font-bold py-2 px-4 mt-5 rounded">
+          Sign up
+        </button>
+      </form>
+      <p>
+        Already have an account? <Link to="/user/login" className='underline font-medium'>Login</Link>
+      </p>
+    </div>
+  );
+};
+
+export default UserSignup;

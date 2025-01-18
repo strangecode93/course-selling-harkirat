@@ -9,11 +9,14 @@ const cors = require('cors')
 dotenv.config()
 app.use(express.json())
 connectDB();
-cors.config({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-});
+
+app.use(
+    cors({
+      origin: '*', // Allow all origins, or specify a list of allowed origins for better security
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+  );
 
 const PORT = process.env.PORT || 3000
 
