@@ -4,6 +4,7 @@ const { z } = require('zod');
 const jwt = require('jsonwebtoken');
 const { adminModel, courseModel } = require('../models/schema.js');
 const adminMiddleware = require('../middleware/admin.middleware.js');
+const mongoose = require('mongoose');
 
 const adminRouter = Router();
 
@@ -132,6 +133,67 @@ adminRouter.get('/course/bulk', adminMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+// Fetch course purchase stats with revenue and buyers
+adminRouter.get('/course/stats', adminMiddleware, async (req, res) => {
+    try {
+        const adminId = req.adminId;
+
+        // Fetch stats
+        const stats = await courseModel.aggregate([
+            // Match courses created by the logged-in admin
+            { $match: { creatorId: new mongoose.Types.ObjectId(adminId) } },
+
+            // Lookup purchases related to each course
+            {
+                $lookup: {
+                    from: "purchases", // Ensure the collection name matches exactly
+                    localField: "_id", // Match course ID
+                    foreignField: "courseId", // Match with purchase courseId
+                    as: "purchases", // The resulting array will be added as this field
+                },
+            },
+
+            // Add a calculated field for the revenue per course
+            {
+                $addFields: {
+                    totalRevenue: {
+                        $multiply: [{ $size: "$purchases" }, { $toDouble: "$price" }],
+                    },
+                },
+            },
+
+            // Project the required fields
+            {
+                $project: {
+                    title: 1, // Course title
+                    price: 1, // Course price
+                    buyers: { $size: "$purchases" }, // Count of buyers
+                    totalRevenue: 1, // Total revenue for the course
+                },
+            },
+        ]);
+
+        // Calculate overall stats
+        const overallRevenue = stats.reduce((sum, course) => sum + course.totalRevenue, 0);
+        const totalBuyers = stats.reduce((sum, course) => sum + course.buyers, 0);
+
+        res.status(200).json({
+            message: "Stats fetched",
+            totalRevenue: overallRevenue,
+            totalBuyers: totalBuyers,
+            stats,
+        });
+    } catch (error) {
+        console.error("Stats Fetch Error:", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+
+
+
+
 
 module.exports = {
     adminRouter,

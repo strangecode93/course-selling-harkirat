@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const UserSignup = () => {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,7 +21,7 @@ const UserSignup = () => {
       const response = await fetch('http://localhost:3000/api/v1/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password }),
       });
       const data = await response.json();
       if (data.token) {
@@ -40,11 +41,19 @@ const UserSignup = () => {
         User Signup
       </h1>
       <form onSubmit={handleSubmit} className="mt-5 p-5 text-xl">
-        <label>Name:</label>
+        <label>First Name:</label>
         <input
           type="text"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
+          value={firstName}
+          required
+          onChange={(event) => setFirstName(event.target.value)}
+          className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+        />
+        <label>Last Name:</label>
+        <input
+          type="text"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
           className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
         />
         <label>Email:</label>

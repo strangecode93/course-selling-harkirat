@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -55,9 +56,9 @@ const Navbar = () => {
         <Link to="/courses">Courses</Link>
         <Link to="/mycourses">My Courses</Link>
         {isLogin ? (
-          <button onClick={handleLogout} className="text-red-500">
+          <Button onClick={handleLogout}>
             Logout
-          </button>
+          </Button>
         ) : (
           <Select onValueChange={handleSelectChange}>
             <SelectTrigger className="w-[90px]">

@@ -19,7 +19,7 @@ const MyCourses: React.FC = () => {
     const fetchPurchasedCourses = async () => {
       const token = localStorage.getItem('token'); // Ensure consistent key usage
       if (!token) {
-        navigate('/login'); // Redirect to login if the user is not authenticated
+        navigate('/user/login'); // Redirect to login if the user is not authenticated
         return;
       }
 

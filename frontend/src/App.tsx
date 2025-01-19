@@ -10,6 +10,8 @@ import MyCourses from "./pages/MyCourses"
 import AdminSignup from "./pages/AdminSignup"
 import BuyCourse from "./components/BuyCourse"
 import Paymentsuccess from "./components/Paymentsuccess"
+import AdminDashboard from "./pages/AdminDashboard"
+import StatsComponent from "./components/StatComponent"
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="/admin/signup" element={<AdminSignup/>}/>
         <Route path="/courses/:courseId" element={<BuyCourse/>}/>
         <Route path="/payment-success" element={<Paymentsuccess/>}/>
+        <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
+        <Route path="/admin/stats" element={<StatsComponent/>}/>
       </Routes>
       <Footer/>
     </div>
