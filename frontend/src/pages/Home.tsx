@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion"
 import { Testimonial } from "@/components/Testimonial"
 import { OrbitingCirclesDemo } from "@/components/Orbithero"
-import { AvatarCirclesDemo } from "@/components/AvatarCircels"
 import RetroGrid from "@/components/ui/retro-grid";
 import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { ChevronRight } from "lucide-react"
@@ -89,10 +88,14 @@ const Home = () => {
 
     {/* avatar circles  */}
     <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
-    <div className="flex items-center justify-center py-5">
+    {/* <div className="flex items-center justify-center py-5">
       <div className="bg-black p-5 rounded-full">
     <AvatarCirclesDemo/>
       </div>
+    </div> */}
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <h1 className="text-2xl text-center md:text-4xl font-bold">codehub</h1>
+    <p>The best place to learn code</p>
     </div>
  
       <RetroGrid />
