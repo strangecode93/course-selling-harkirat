@@ -1,4 +1,4 @@
-import { Github, Linkedin } from "lucide-react"
+import { Github } from "lucide-react"
 
 
 const Footer = () => {
@@ -6,8 +6,7 @@ const Footer = () => {
     <div className="p-5 flex items-center justify-between">
         <h1>designed & developed by @somil</h1>
         <div className="flex gap-5">
-            <Github/>
-            <Linkedin/>
+          <a href="https://github.com/strangecode93/course-selling-harkirat" target="_blank"><Github/></a>
         </div>
     </div>
   )

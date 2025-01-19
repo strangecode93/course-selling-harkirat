@@ -57,8 +57,8 @@ const MyCourses: React.FC = () => {
   }
 
   return (
-    <div className="p-4 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">My Courses</h1>
+    <div className="p-5 min-h-screen">
+      <h1 className="text-2xl md:text-5xl font-bold text-center mb-6 mt-10">my courses</h1>
       {courses.length === 0 ? (
         <p className="text-center">You have not purchased any courses yet.</p>
       ) : (
@@ -66,7 +66,7 @@ const MyCourses: React.FC = () => {
           {courses.map((course) => (
             <div
               key={course._id}
-              className="bg-white rounded-md shadow-md p-4 flex flex-col items-center"
+              className="bg-white rounded-md border cursor-pointer p-4 flex flex-col items-center"
             >
               <img
                 src={course.imageUrl}

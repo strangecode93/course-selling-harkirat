@@ -30,6 +30,7 @@ const AdminLogin = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className='border p-16 rounded'>
       <h1 className="text-xl text-center md:text-3xl font-bold">
         Admin Login
       </h1>
@@ -56,6 +57,7 @@ const AdminLogin = () => {
       <p>
         Don't have an account? <Link to="/admin/signup" className='font-medium underline'>Sign up</Link>
       </p>
+      </div>
     </div>
   );
 };

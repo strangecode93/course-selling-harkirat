@@ -32,6 +32,7 @@ const UserLogin = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className='border p-16 rounded'>
       <h1 className="text-xl text-center md:text-3xl font-bold">User Login</h1>
       <form onSubmit={handleSubmit} className="mt-5 p-5 text-xl">
         <label>Email:</label>
@@ -64,6 +65,7 @@ const UserLogin = () => {
           Sign up
         </Link>
       </p>
+      </div>
     </div>
   );
 };

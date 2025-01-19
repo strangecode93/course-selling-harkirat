@@ -13,12 +13,12 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
-    <div className="bg-white p-4 rounded-md shadow-md">
+    <div className="bg-white p-4 rounded-md border">
       <h2 className="text-2xl font-bold">{course.title}</h2>
       <p className="text-lg">{course.description}</p>
       <p className="text-lg">Price: ${course.price}</p>
       <Link to={`/courses/${course._id}`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button className="bg-black text-white font-bold py-2 px-4 mt-5 rounded">
           Buy Course
         </button>
       </Link>

@@ -63,9 +63,9 @@ const BuyCourse = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen px-10">
-      <h1 className="text-xl text-center md:text-3xl font-bold my-5">Buy Course</h1>
-      <div className="bg-white p-4 rounded-md shadow-md">
+    <div className="flex flex-col min-h-screen px-5">
+      <h1 className="text-2xl text-center md:text-5xl font-bold mt-10 mb-6">buy course</h1>
+      <div className="bg-white p-4 rounded-md border">
         <div className='flex gap-5 flex-wrap'>
       <img
                 src={course.imageUrl}
@@ -77,7 +77,7 @@ const BuyCourse = () => {
         <p className="text-lg">{course.description}</p>
         <p className="text-xl font-medium">Price: ${course.price}</p>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded"
+          className="bg-black text-white font-bold py-2 px-4 mt-5 rounded"
           onClick={handleBuyCourse}
           >
           Buy Course
